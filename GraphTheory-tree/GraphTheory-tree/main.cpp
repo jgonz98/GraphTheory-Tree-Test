@@ -6,6 +6,7 @@ using namespace std;
 
 void formatVertices(string, vector<string>&);
 void formatEdges(string, vector<string>&);
+void formatAdjacents(vector<string> edgesData, string[][]);
 
 void main() {
 	string vertices, edges;
@@ -65,4 +66,8 @@ void formatEdges(string edges, vector<string>& edgesData) {
 
 	}
 
+}
+
+void formatAdjacent(vector<string> verticesData, vector<string> edgesData, string adjacent[][]) {
+	//Process edges into new array with first row as vertices and columns under it's adjacent vertices.
 }
