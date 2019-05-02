@@ -6,12 +6,13 @@ using namespace std;
 
 void formatVertices(string, vector<string>&);
 void formatEdges(string, vector<string>&);
-void formatAdjacents(vector<string>, vector<string>, string[][]);
+void formatAdjacents(vector<string>, vector<string>, vector<vector<string>>);
 
 void main() {
 	string vertices, edges;
 	vector<string> verticesData;
 	vector<string> edgesData;
+	vector<vector<string>> adjacentData;
 
 	cout << "Enter the number of vertices V(G) using {a,b,c} form: {";
 	getline(cin, vertices);
@@ -68,6 +69,6 @@ void formatEdges(string edges, vector<string>& edgesData) {
 
 }
 
-void formatAdjacent(vector<string> verticesData, vector<string> edgesData, string adjacent[][]) {
+void formatAdjacent(vector<string> verticesData, vector<string> edgesData, vector<vector<string>>& adjacentData) {
 	//Process edges into new array with first row as vertices and columns under it's adjacent vertices.
 }
