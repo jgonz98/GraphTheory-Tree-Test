@@ -6,7 +6,7 @@ using namespace std;
 
 void formatVertices(string, vector<string>&);
 void formatEdges(string, vector<string>&);
-void formatAdjacents(vector<string> edgesData, string[][]);
+void formatAdjacents(vector<string>, vector<string>, string[][]);
 
 void main() {
 	string vertices, edges;
