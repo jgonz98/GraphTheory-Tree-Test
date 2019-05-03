@@ -32,7 +32,6 @@ void main() {
 	else {
 		cout << "The graph is not a tree!" << endl;
 	}
-
 	system("pause");
 }
 
@@ -88,24 +87,16 @@ void fEdges(vector<string> verticesData, vector<int> *adj,string edges) {
 
 bool cycleCheck(int v,bool visited[], int parent, vector<int> *adj)
 {
-	// Mark the current node as visited 
 	visited[v] = true;
-
-	// Recur for all the vertices adjacent to this vertex 
 	vector<int>::iterator i;
 	for (i = adj[v].begin(); i != adj[v].end(); ++i)
 	{
-		// If an adjacent is not visited, then recur for  
-		// that adjacent 
 		if (!visited[*i])
 		{
 			if (cycleCheck(*i, visited, v,adj)) {
 				return true;
 			}
 		}
-
-		// If an adjacent is visited and not parent of current 
-		// vertex, then there is a cycle. 
 		else if (*i != parent) {
 			return true;
 		}
@@ -115,24 +106,13 @@ bool cycleCheck(int v,bool visited[], int parent, vector<int> *adj)
 
 bool isTree(vector<string> verticesData, vector<int> *adj)
 {
-	// Mark all the vertices as not visited and not part of  
-	// recursion stack 
 	bool *visited = new bool[verticesData.size()];
 	for (int i = 0; i < verticesData.size(); i++)
 		visited[i] = false;
-
-	// The call to isCyclicUtil serves multiple purposes. 
-	// It returns true if graph reachable from vertex 0  
-	// is cyclcic. It also marks all vertices reachable  
-	// from 0. 
 	if (cycleCheck(0, visited, -1, adj))
-		return false;
-
-	// If we find a vertex which is not reachable from 0  
-	// (not marked by isCyclicUtil(), then we return false 
+		return false; 
 	for (int u = 0; u < verticesData.size(); u++)
 		if (!visited[u])
 			return false;
-
 	return true;
 }
