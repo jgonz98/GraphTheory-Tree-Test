@@ -27,10 +27,10 @@ void main() {
 	getline(cin, edges);
 	fEdges(verticesData,adj,edges);
 	if (isTree(verticesData, adj)) {
-		cout << "The graph is a tree!" << endl;
+		cout << "therefore graph is a tree." << endl;
 	}
 	else {
-		cout << "The graph is not a tree!" << endl;
+		cout << "therefore graph is not a tree." << endl;
 	}
 	system("pause");
 }
@@ -106,13 +106,31 @@ bool cycleCheck(int v,bool visited[], int parent, vector<int> *adj)
 
 bool isTree(vector<string> verticesData, vector<int> *adj)
 {
+	int cycle = 0,con = 0;
 	bool *visited = new bool[verticesData.size()];
 	for (int i = 0; i < verticesData.size(); i++)
 		visited[i] = false;
-	if (cycleCheck(0, visited, -1, adj))
-		return false; 
+	if (cycleCheck(0, visited, -1, adj)) {
+		cycle = 1;
+	}
 	for (int u = 0; u < verticesData.size(); u++)
-		if (!visited[u])
-			return false;
-	return true;
+		if (!visited[u]) {
+			con = 1;
+		}
+	if (con == 1 && cycle == 1) {
+		cout << "The graph is disconnected and contains cycles, ";
+		return false;
+	}
+	if (con == 1 && cycle == 0) {
+		cout << "The graph is disconnected and acyclic, ";
+		return false;
+	}
+	if (con == 0 && cycle == 1) {
+		cout << "The graph is connected and contains cycles, ";
+		return false;
+	}
+	if (con == 0 && cycle == 0) {
+		cout << "The graph is connected and acyclic, ";
+		return true;
+	}
 }
