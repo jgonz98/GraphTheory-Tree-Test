@@ -36,25 +36,25 @@ void main() {
 }
 
 void formatVertices(string vertices, vector<string> &verticesData) {
-	string vt;
-	int lcheck = 0;
+	string vt; //Used as placeholder to assign vertices to
+	int lcheck = 0; //letter check used to ensure character per vertex is 1
 	for (int i = 0; i < vertices.length(); i++) {
 		if (vertices.substr(i, 1) == "}") {
-			verticesData.push_back(vt);
-			vt.clear();
+			verticesData.push_back(vt); //Add vertex to vector
+			vt.clear(); //Clear string placeholde
 		}
 		else if (vertices.substr(i, 1) == ",") {
-			verticesData.push_back(vt);
-			vt.clear();
-			lcheck = 0;
+			verticesData.push_back(vt); //Add vertex to vector
+			vt.clear(); //Clear string placeholder
+			lcheck = 0; //Reset character count to 0
 		}
 		else {
-			vt = vertices.substr(i, 1);
-			lcheck++;
+			vt = vertices.substr(i, 1); //Set vt equal to point in vertex string 
+			lcheck++; //Increase character count by 1
 		}
-		if (lcheck > 1) {
+		if (lcheck > 1) { //Character check
 			i = vertices.length() + 1;
-			cout << "ERROR: YOU CAN ONLY INPUT SINGLE LETTERS FOR VERTICES" << endl;
+			cout << "ERROR: YOU CAN ONLY INPUT SINGLE CHARACTERS FOR VERTICES" << endl;
 			terminate();
 		}
 
@@ -62,22 +62,27 @@ void formatVertices(string vertices, vector<string> &verticesData) {
 }
 
 void fEdges(vector<string> verticesData, vector<int> *adj,string edges) {
-	int o, t, c=0;
-	for (int i = 0; i < edges.length(); i++) {
-		for (int j = 0; j < verticesData.size(); j++) {
+	int o, t, c = 0; 
+	//Go through edge string
+	for (int i = 0; i < edges.length(); i++) { 
+		//Compare edge string to vertices
+		for (int j = 0; j < verticesData.size(); j++) { 
 			if (verticesData[j] == edges.substr(i,1)) {
-				if (c == 0) {
+				//Set 1st match of edge equal to o 
+				if (c == 0) { 
 					o = j;
 					c++;
 				}
-				else {
+				//Set 2nd match of edge equal to t
+				else { 
 					t = j;
 					c++;
 				}
 
 			}
 		}
-		if (c == 2) {
+		//Pushing o and t to each others adjacent vector
+		if (c == 2) { 
 			adj[o].push_back(t);
 			adj[t].push_back(o);
 			c = 0;
@@ -107,16 +112,20 @@ bool cycleCheck(int v,bool visited[], int parent, vector<int> *adj)
 bool isTree(vector<string> verticesData, vector<int> *adj)
 {
 	int cycle = 0,con = 0;
+	//Initialize vertices to not visited
 	bool *visited = new bool[verticesData.size()];
 	for (int i = 0; i < verticesData.size(); i++)
 		visited[i] = false;
+	//Run cycleCheck from vertex 0
 	if (cycleCheck(0, visited, -1, adj)) {
 		cycle = 1;
 	}
+	//Do connected and disconnected check by checking for unvisited vertex
 	for (int u = 0; u < verticesData.size(); u++)
 		if (!visited[u]) {
 			con = 1;
 		}
+	//Output Result
 	if (con == 1 && cycle == 1) {
 		cout << "The graph is disconnected and contains cycles, ";
 		return false;
